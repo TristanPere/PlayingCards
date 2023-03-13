@@ -3,61 +3,63 @@ package org.example;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Deck {
+import static org.example.DeckUtils.*;
 
+public class CardGame {
 
-    private ArrayList<PlayingCard> deck ;
-    ;
-    private String[] suits = new String[]{"♠", "♥", "♦", "♣"};
-    private String[] symbol = new String[]{"J", "Q", "K", "A"};
+    protected ArrayList<Card> deck;
+
     private String name;
 
-    public Deck(String name) {
+    public CardGame(String name) {
         this.name = name;
-        deck = new ArrayList<PlayingCard>();
-        PlayingCard playingCard;
+        this.deck = constructDeck();
+    }
+    protected ArrayList<Card> constructDeck(){
+        Card card;
+        ArrayList<Card> cardDeck = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             String suit = suits[i];
             for (int j = 2; j < 15; j++) {
                 if (j <= 10) {
-                    playingCard = new PlayingCard(suit, String.valueOf(j), j);
+                    card = new Card(suit, String.valueOf(j), j);
                 } else {
-                    playingCard = new PlayingCard(suit, symbol[j - 11], j);
+                    card = new Card(suit, symbol[j - 11], j);
                 }
-                this.deck.add(playingCard);
+                cardDeck.add(card);
             }
         }
+        return cardDeck;
     }
 
     public void getDeck() {
-        this.deck.forEach(playingCard -> {
-            System.out.println(playingCard.toString());
+        this.deck.forEach(card -> {
+            System.out.println(card.toString());
         });
-
     }
 
-    public PlayingCard dealCard() {
+    public Card dealCard() {
         return this.deck.get(0);
     }
 
-    public ArrayList<PlayingCard> sortDeckInNumberOrder(){
-        this.deck = (ArrayList<PlayingCard>) deck.stream().sorted(Comparator.comparing(PlayingCard::getValue)).collect(Collectors.toList());
+    public ArrayList<Card> sortDeckInNumberOrder(){
+        this.deck = (ArrayList<Card>) deck.stream().sorted(Comparator.comparing(Card::getValue)).collect(Collectors.toList());
         return deck;
     }
 
-    public ArrayList<PlayingCard> sortDeckIntoSuits(){
-        ArrayList<PlayingCard> sortedDeck = (ArrayList<PlayingCard>) deck.stream().sorted(Comparator.comparing(PlayingCard::getValue)).collect(Collectors.toList());
-        this.deck = (ArrayList<PlayingCard>) sortedDeck.stream().sorted(Comparator.comparing(PlayingCard::getSuit)).collect(Collectors.toList());
+    public ArrayList<Card> sortDeckIntoSuits(){
+        ArrayList<Card> sortedDeck = (ArrayList<Card>) deck.stream().sorted(Comparator.comparing(Card::getValue)).collect(Collectors.toList());
+        this.deck = (ArrayList<Card>) sortedDeck.stream().sorted(Comparator.comparing(Card::getSuit)).collect(Collectors.toList());
         return deck;
     };
 
-    public ArrayList<PlayingCard> shuffleDeck() {
+    public ArrayList<Card> shuffleDeck() {
         Random r = new Random();
         for (int i = 51; i > 0; i--) {
             // Pick a random index from 0 to i
             int j = r.nextInt(i);
             // Swap deck[i] with the element at random index
-            PlayingCard temp = deck.get(i);
+            Card temp = deck.get(i);
             this.deck.set(i,deck.get(j));
             this.deck.set(j,temp);
         }
