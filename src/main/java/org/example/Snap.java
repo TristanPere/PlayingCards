@@ -47,7 +47,7 @@ public class Snap extends CardGame {
         shuffleDeck();
         System.out.println("First Card is:");
         System.out.println(dealCard());
-        timer.scheduleAtFixedRate(task, 3000L, 3000L);
+        timer.scheduleAtFixedRate(task, 1000L, 1000L);
         while (!match) {
             input = scanner.nextLine();
             if (input.toUpperCase().matches("SNAP") && this.deck.get(turn - 1).getValue() == this.deck.get(turn - 2).getValue()) {
