@@ -1,6 +1,15 @@
 package org.example;
 
-public class DeckUtils {
-    public static String[] suits = new String[]{"♠", "♥", "♦", "♣"};
-    public static String[] symbol = new String[]{"J", "Q", "K", "A"};
+public enum DeckUtils {
+    SUITS(new String[]{"♠", "♥", "♦", "♣"}), SYMBOLS(new String[]{"J", "Q", "K", "A"});
+    private final String[] collection;
+    DeckUtils(String[] strings) {
+        this.collection = strings;
+    }
+
+    public String[] getCollection() {
+        return collection;
+    }
+
+
 }

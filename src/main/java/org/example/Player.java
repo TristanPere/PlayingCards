@@ -1,20 +1,28 @@
 package org.example;
 
 public class Player {
-    private String name;
+    private final String name;
     private int score;
 
-    public void setScore() {
-        this.score += 100;
+    public Player(String name) {
+        this.name = name;
+        this.score = 0;
+    }
+
+    public void gainScore() {
+        this.score += 5;
+    }
+
+    public void looseScore() {
+        this.score -= 1;
     }
 
     public String getName() {
         return name;
     }
 
-    public Player(String name) {
-        this.name = name;
-        this.score = 0;
+    public int getScore() {
+        return this.score;
     }
 
     public String toString() {

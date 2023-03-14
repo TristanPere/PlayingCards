@@ -1,5 +1,7 @@
 package org.example;
 
+import static org.example.CardVisual.getCardASCII;
+
 public class Card {
     private String suit;
     private String symbol;
@@ -20,5 +22,8 @@ public class Card {
 
     public String toString(){
         return symbol + " of " + suit + " has value: " + value;
+    }
+    public String getCardART(){
+        return getCardASCII(this.suit, this.value);
     }
 }

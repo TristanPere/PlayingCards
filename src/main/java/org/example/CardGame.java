@@ -3,28 +3,26 @@ package org.example;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.example.DeckUtils.*;
-
-public class CardGame {
+public abstract class CardGame {
 
     protected ArrayList<Card> deck;
 
-    private String name;
+    private final String name;
 
     public CardGame(String name) {
         this.name = name;
         this.deck = constructDeck();
     }
-    protected ArrayList<Card> constructDeck(){
+    public ArrayList<Card> constructDeck(){
         Card card;
         ArrayList<Card> cardDeck = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
-            String suit = suits[i];
+            String suit = DeckUtils.SUITS.getCollection()[i];
             for (int j = 2; j < 15; j++) {
                 if (j <= 10) {
                     card = new Card(suit, String.valueOf(j), j);
                 } else {
-                    card = new Card(suit, symbol[j - 11], j);
+                    card = new Card(suit, DeckUtils.SYMBOLS.getCollection()[j - 11], j);
                 }
                 cardDeck.add(card);
             }
@@ -38,8 +36,8 @@ public class CardGame {
         });
     }
 
-    public Card dealCard() {
-        return this.deck.get(0);
+    public String dealCard() {
+        return this.deck.get(0).getCardART();
     }
 
     public ArrayList<Card> sortDeckInNumberOrder(){
@@ -53,15 +51,15 @@ public class CardGame {
         return deck;
     };
 
-    public ArrayList<Card> shuffleDeck() {
+    public ArrayList<Card> shuffleDeck(ArrayList<Card> deck ) {
         Random r = new Random();
         for (int i = 51; i > 0; i--) {
             // Pick a random index from 0 to i
             int j = r.nextInt(i);
             // Swap deck[i] with the element at random index
             Card temp = deck.get(i);
-            this.deck.set(i,deck.get(j));
-            this.deck.set(j,temp);
+            deck.set(i,deck.get(j));
+            deck.set(j,temp);
         }
         return deck;
     }
