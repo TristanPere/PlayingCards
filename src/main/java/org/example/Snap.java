@@ -42,6 +42,8 @@ public class Snap extends CardGame {
     }
 
     private void playGame1P(ArrayList<Card> deck, Scanner scanner) {
+        this.turn = 1;
+        this.match=false;
         shuffleDeck(deck);
         System.out.println("First Card is:");
         System.out.println(dealCard());
@@ -53,9 +55,28 @@ public class Snap extends CardGame {
                 match = true;
             }
         }
+        System.out.println("Play-Again(1) | Play MultiSnap (2) | Back to Main Menu (3)");
+        String playAgain = scanner.nextLine();
+        int playAgainInt = stringToInt(playAgain);
+        if (1 == playAgainInt){
+            playGame1P(deck, scanner);
+        } else if(2==playAgainInt){
+            System.out.println("Please Enter Players Name");
+            String playerName = scanner.nextLine();
+            playGameVsComputer(new Player(playerName), deck, scanner);
+        } else if (3==playAgainInt) {
+            System.out.println("Single-Player(1) | Multi-Player(2) | EXIT(3)");
+            String gameMode = scanner.nextLine();
+            gameModeSelect(gameMode, scanner, new Snap("Snap"), deck);
+        } else {
+            System.out.println("Invalid Input Returned to 1 Player Menu with Default Name (Player1)");
+            play1PGAMELOGIC(scanner, new Snap("Snap"), new Player("Player1") );
+        }
     }
 
     private void playGameVsComputer(Player player1, ArrayList<Card> deck, Scanner scanner) {
+        this.turn = 1;
+        this.match=false;
         String input;
         Timer timer = new Timer("Timer");
         TimerTask task = new TimerTask() {
@@ -70,6 +91,7 @@ public class Snap extends CardGame {
             }
         };
         shuffleDeck(deck);
+        System.out.println("Type Snap to Snap!");
         System.out.println("First Card is:");
         System.out.println(dealCard());
         timer.scheduleAtFixedRate(task, 2000L, 2000L);
@@ -78,13 +100,33 @@ public class Snap extends CardGame {
             if (input.toUpperCase().matches("SNAP") && deck.get(turn - 1).getValue() == deck.get(turn - 2).getValue()) {
                 System.out.println("Good Snap!");
                 player1.gainScore();
+            } else if (input.toUpperCase().matches("SNAP") && deck.get(turn - 1).getValue() != deck.get(turn - 2).getValue()) {
+                System.out.println("Bad Snap!");
+                player1.looseScore();
             }
         }
-        System.out.println(player1.getScore());
+        System.out.println("Your Finale Score Was: " + player1.getScore());
+        System.out.println("Play-Again(1) | Play Single Snap (2) | Back to Main Menu (3)");
+        String playAgain = scanner.nextLine();
+        int playAgainInt = stringToInt(playAgain);
+        if (1 == playAgainInt){
+            playGameVsComputer(player1, deck, scanner);
+        } else if(2==playAgainInt){
+            playGame1P(deck, scanner);
+        } else if (3==playAgainInt) {
+            System.out.println("Single-Player(1) | Multi-Player(2) | EXIT(3)");
+            String gameMode = scanner.nextLine();
+            gameModeSelect(gameMode, scanner, new Snap("Snap"), deck);
+        } else {
+            System.out.println("Invalid Input Returned to 1 Player Menu with Default Name (Player1)");
+            play1PGAMELOGIC(scanner, new Snap("Snap"), player1);
+        }
     }
 
 
     private void playGame2P(Player player1, Player player2, ArrayList<Card> deck, Scanner scanner) {
+        this.turn = 1;
+        this.match=false;
         String input;
         Timer timer = new Timer("Timer");
         TimerTask task = new TimerTask() {
@@ -103,6 +145,7 @@ public class Snap extends CardGame {
             }
         };
         shuffleDeck(deck);
+        System.out.println("Type Snap to Snap! First Snap Wins!");
         System.out.println("First Card is:");
         System.out.println(dealCard());
         timer.scheduleAtFixedRate(task, 2000L, 2000L);
@@ -132,6 +175,16 @@ public class Snap extends CardGame {
         System.out.println(player1);
         System.out.println(player2);
         timer.cancel();
+        System.out.println("Play-Again(1) | Back to Main Menu (2)");
+        String playAgain = scanner.nextLine();
+        int playAgainInt = stringToInt(playAgain);
+        if (1 == playAgainInt){
+            playGame2P(player1, player2, deck, scanner);
+        } else {
+            System.out.println("Single-Player(1) | Multi-Player(2) | EXIT(3)");
+            String gameMode = scanner.nextLine();
+            gameModeSelect(gameMode, scanner, new Snap("snap"), deck);
+        }
     }
 
 
@@ -140,11 +193,11 @@ public class Snap extends CardGame {
         String gameMode = scanner.nextLine();
         int gameModeInt = stringToInt(gameMode);
         if (1 == gameModeInt) {
-            snap.playGame1P(deck, scanner);
+            playGame1P(deck, scanner);
         } else if (2 == gameModeInt){
-            snap.playGameVsComputer(P1, deck, scanner);
+            playGameVsComputer(P1, deck, scanner);
         } else if (3 == gameModeInt){
-            System.out.println("Single-Player(1) | Multi-Player(2) | LeaderBoards(3) | EXIT(4)");
+            System.out.println("Single-Player(1) | Multi-Player(2) | EXIT(3)");
             gameMode = scanner.nextLine();
             gameModeSelect(gameMode, scanner, snap, deck);
         } else {
@@ -162,7 +215,6 @@ public class Snap extends CardGame {
 
     public void gameModeSelect(String gameMode, Scanner scanner, Snap snap, ArrayList<Card> deck){
         int gameModeInt = stringToInt(gameMode);
-        while(!snap.hasMatched()) {
             if (1 == gameModeInt) {
                 System.out.println("Please Enter Your NAME");
                 String P1Name = scanner.nextLine();
@@ -177,19 +229,14 @@ public class Snap extends CardGame {
                 Player P2 = new Player(P2Name);
                 snap.playGame2P(P1, P2, deck, scanner);
             } else if (3==gameModeInt) {
-                System.out.println("LeaderBoards......");
-                System.out.println("Single-Player(1) | Multi-Player(2) | LeaderBoards(3) | EXIT(4)");
-                gameMode = scanner.nextLine();
-                gameModeSelect(gameMode, scanner, snap, deck);
-            } else if (4==gameModeInt) {
                 System.out.println("Good Bye");
                 exit(0);
             } else {
-                System.out.println("                Please Input a Valid Option                   ");
-                System.out.println("Single-Player(1) | Multi-Player(2) | LeaderBoards(3) | EXIT(4)");
+                System.out.println("         Please Input a Valid Option         ");
+                System.out.println("Single-Player(1) | Multi-Player(2) | EXIT(3)");
                 gameMode = scanner.nextLine();
                 gameModeSelect(gameMode, scanner, snap, deck);
             }
-        }
+
     }
 }

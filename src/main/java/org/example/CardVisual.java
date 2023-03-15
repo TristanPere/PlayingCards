@@ -1,7 +1,7 @@
 package org.example;
 
 public class CardVisual {
-    private static String newline = System.getProperty("line.separator");
+    private static final String newline = System.getProperty("line.separator");
 
     public static String getCardASCII(String suit, int value) {
         switch (suit){
@@ -18,7 +18,7 @@ public class CardVisual {
     }
 
     ;
-    private static String[] hearts = new String[]{
+    private static final String[] hearts = new String[]{
             String.join(newline,
                     " _____",
                     "|2    |",
@@ -105,13 +105,13 @@ public class CardVisual {
             "|_%%%>|"),
             String.join(newline,
             " _____",
-            "|A_ _|",
+            "|A_ _ |",
             "|( v )|",
-            "|\\ / |",
+            "| \\ / |",
             "|  .  |",
             "|____V|")
     };
-    private static String[] diamonds = new String[]{
+    private static final String[] diamonds = new String[]{
             String.join(newline,
                     " _____",
                     "|2    |",
@@ -204,7 +204,7 @@ public class CardVisual {
                     "|  .  |",
                     "|___♦V|")
     };
-    private static String[] clubs = new String[]{
+    private static final String[] clubs = new String[]{
             String.join(newline,
                     " _____",
                     "|2    |",
@@ -297,7 +297,7 @@ public class CardVisual {
                     "|  |  |",
                     "|___♣V|")
     };
-    private static String[] spades = new String[]{
+    private static final String[] spades = new String[]{
             String.join(newline,
                     " _____",
                     "|2    |",
