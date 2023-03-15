@@ -3,7 +3,6 @@ package org.example;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static org.example.CardVisual.getCardASCII;
 
 public class App {
     public static void main(String[] args) {
@@ -12,9 +11,9 @@ public class App {
         Player player2 = new Player("Johnny");
         ArrayList<Card> deck = snap.constructDeck();
         Scanner scanner = new Scanner(System.in);
-//        System.out.println("                     Welcome to SNAP!!                        ");
-//        System.out.println("Single-Player(1) | Multi-Player(2) | LeaderBoards(3) | EXIT(4)");
-//        String gameMode = scanner.nextLine();
-        snap.playGame2P(player,  player2, deck, scanner);
+        System.out.println("                     Welcome to SNAP!!                        ");
+        System.out.println("Single-Player(1) | Multi-Player(2) | LeaderBoards(3) | EXIT(4)");
+        String gameMode = scanner.nextLine();
+        snap.gameModeSelect(gameMode, scanner, snap, deck);
     }
 }

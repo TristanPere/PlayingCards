@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fba1253d-0399-4022-aab0-d7a574874612" name="Changes" comment="commit before rewrite of timer functionality">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/CardVisual.java" afterDir="false" />
+    <list default="true" id="fba1253d-0399-4022-aab0-d7a574874612" name="Changes" comment="Completed breif With refactoring as well as intro of card visual array. Began Working on Game Mode Naviagation.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Card.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/CardGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/CardGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/DeckUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/DeckUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Snap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Snap.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -80,12 +76,20 @@
       <option name="project" value="LOCAL" />
       <updated>1678785232567</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Completed breif With refactoring as well as intro of card visual array. Began Working on Game Mode Naviagation.">
+      <created>1678826574391</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1678826574391</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="refactoring" />
     <MESSAGE value="commit before rewrite of timer functionality" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit before rewrite of timer functionality" />
+    <MESSAGE value="Completed breif With refactoring as well as intro of card visual array. Began Working on Game Mode Naviagation." />
+    <option name="LAST_COMMIT_MESSAGE" value="Completed breif With refactoring as well as intro of card visual array. Began Working on Game Mode Naviagation." />
   </component>
 </project>

@@ -30,28 +30,28 @@ public abstract class CardGame {
         return cardDeck;
     }
 
-    public void getDeck() {
+    protected void getDeck() {
         this.deck.forEach(card -> {
             System.out.println(card.toString());
         });
     }
 
-    public String dealCard() {
+    protected String dealCard() {
         return this.deck.get(0).getCardART();
     }
 
-    public ArrayList<Card> sortDeckInNumberOrder(){
+    protected ArrayList<Card> sortDeckInNumberOrder(){
         this.deck = (ArrayList<Card>) deck.stream().sorted(Comparator.comparing(Card::getValue)).collect(Collectors.toList());
         return deck;
     }
 
-    public ArrayList<Card> sortDeckIntoSuits(){
+    protected ArrayList<Card> sortDeckIntoSuits(){
         ArrayList<Card> sortedDeck = (ArrayList<Card>) deck.stream().sorted(Comparator.comparing(Card::getValue)).collect(Collectors.toList());
         this.deck = (ArrayList<Card>) sortedDeck.stream().sorted(Comparator.comparing(Card::getSuit)).collect(Collectors.toList());
         return deck;
     };
 
-    public ArrayList<Card> shuffleDeck(ArrayList<Card> deck ) {
+    protected ArrayList<Card> shuffleDeck(ArrayList<Card> deck ) {
         Random r = new Random();
         for (int i = 51; i > 0; i--) {
             // Pick a random index from 0 to i
