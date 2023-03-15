@@ -4,17 +4,19 @@ public class CardVisual {
     private static final String newline = System.getProperty("line.separator");
 
     public static String getCardASCII(String suit, int value) {
-        switch (suit){
-            case "♠" :
-                return spades[value-2];
-            case "♥" :
-                return hearts[value-2];
-            case "♦" :
-                return diamonds[value-2];
-            case "♣" :
-                return clubs[value-2];
+        if(value<15) {
+            switch (suit) {
+                case "♠":
+                    return spades[value - 2];
+                case "♥":
+                    return hearts[value - 2];
+                case "♦":
+                    return diamonds[value - 2];
+                case "♣":
+                    return clubs[value - 2];
+            }
         }
-        return suit+value+"doesn't exist";
+        return value+suit+"'s doesn't exist";
     }
 
     ;
