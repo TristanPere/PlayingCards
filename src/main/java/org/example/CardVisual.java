@@ -19,7 +19,7 @@ public class CardVisual {
         return value+suit+"'s doesn't exist";
     }
 
-    ;
+
     private static final String[] hearts = new String[]{
             String.join(newline,
                     " _____",
