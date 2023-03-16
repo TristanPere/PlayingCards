@@ -48,7 +48,7 @@ public class Snap extends CardGame {
     private void playGame1P(ArrayList<Card> deck, Scanner scanner) {
         this.turn = 1;
         this.match = false;
-        shuffleDeck(deck);
+        deck = shuffleDeck(deck);
         System.out.println("First Card is:");
         System.out.println(dealCard());
         while (!match) {
@@ -83,10 +83,11 @@ public class Snap extends CardGame {
         this.match = false;
         String input;
         Timer timer = new Timer("Timer");
+        ArrayList<Card> finalDeck = shuffleDeck(deck);
         TimerTask task = new TimerTask() {
             public void run() {
                 try {
-                    takeTurn(deck);
+                    takeTurn(finalDeck);
                 } catch (IndexOutOfBoundsException e) {
                     timer.cancel();
                     System.out.println("Game Over. Press ENTER to see score.");
@@ -94,17 +95,16 @@ public class Snap extends CardGame {
                 }
             }
         };
-        shuffleDeck(deck);
         System.out.println("Type Snap to Snap!");
         System.out.println("First Card is:");
         System.out.println(dealCard());
         timer.scheduleAtFixedRate(task, 2000L, 2000L);
         while (!match) {
             input = scanner.nextLine();
-            if (input.toUpperCase().matches("SNAP") && deck.get(turn - 1).getValue() == deck.get(turn - 2).getValue()) {
+            if (input.toUpperCase().matches("SNAP") && finalDeck.get(turn - 1).getValue() == finalDeck.get(turn - 2).getValue()) {
                 System.out.println("Good Snap!");
                 player1.gainScore();
-            } else if (input.toUpperCase().matches("SNAP") && deck.get(turn - 1).getValue() != deck.get(turn - 2).getValue()) {
+            } else if (input.toUpperCase().matches("SNAP") && finalDeck.get(turn - 1).getValue() != finalDeck.get(turn - 2).getValue()) {
                 System.out.println("Bad Snap!");
                 player1.looseScore();
             }
@@ -133,11 +133,12 @@ public class Snap extends CardGame {
         this.match = false;
         String input;
         Timer timer = new Timer("Timer");
+        ArrayList<Card> finalDeck = shuffleDeck(deck);
         TimerTask task = new TimerTask() {
 
             public void run() {
                 try {
-                    takeTurn(deck, player1, player2);
+                    takeTurn(finalDeck, player1, player2);
                 } catch (IndexOutOfBoundsException e) {
                     timer.cancel();
                     System.out.println("No Snap, Game Over.");
@@ -148,14 +149,14 @@ public class Snap extends CardGame {
                 }
             }
         };
-        shuffleDeck(deck);
+
         System.out.println("Type Snap to Snap! First Snap Wins!");
         System.out.println("First Card is:");
         System.out.println(dealCard());
         timer.scheduleAtFixedRate(task, 2000L, 2000L);
         while (!match) {
             input = scanner.nextLine();
-            if (input.toUpperCase().matches("SNAP") && deck.get(turn - 1).getValue() == deck.get(turn - 2).getValue()) {
+            if (input.toUpperCase().matches("SNAP") && finalDeck.get(turn - 1).getValue() == finalDeck.get(turn - 2).getValue()) {
                 if (turn % 2 == 0) {
                     System.out.println(player1.getName() + " WINS!!");
                     player1.gainScore();
@@ -164,7 +165,7 @@ public class Snap extends CardGame {
                     player2.gainScore();
                 }
                 match = true;
-            } else if (input.toUpperCase().matches("SNAP") && deck.get(turn - 1).getValue() != deck.get(turn - 2).getValue()) {
+            } else if (input.toUpperCase().matches("SNAP") && finalDeck.get(turn - 1).getValue() != finalDeck.get(turn - 2).getValue()) {
                 System.out.println("That was NOT a SNAP!");
                 if (turn % 2 == 0) {
                     System.out.println(player1.getName() + " LOOSES!!");
@@ -190,7 +191,6 @@ public class Snap extends CardGame {
             gameModeSelect(gameMode, scanner, new Snap("snap"), deck);
         }
     }
-
     private void play1PGAMELOGIC(Scanner scanner, Snap snap, Player P1) {
         System.out.println("Simple Snap(1) | MultiSnap(2) | Back To Main Menu (3)");
         String gameMode = scanner.nextLine();
@@ -208,7 +208,6 @@ public class Snap extends CardGame {
             play1PGAMELOGIC(scanner, snap, P1);
         }
     }
-
     public void gameModeSelect(String gameMode, Scanner scanner, Snap snap, ArrayList<Card> deck) {
         int gameModeInt = stringToInt(gameMode);
         if (1 == gameModeInt) {
@@ -235,4 +234,5 @@ public class Snap extends CardGame {
         }
 
     }
+
 }
