@@ -5,15 +5,16 @@ import java.util.stream.Collectors;
 
 public abstract class CardGame {
 
-    protected ArrayList<Card> deck;
-
+    public ArrayList<Card> deck;
+    protected ArrayList<Card> dealtCards = new ArrayList<>();
     private final String name;
 
     public CardGame(String name) {
         this.name = name;
         this.deck = constructDeck();
     }
-    public ArrayList<Card> constructDeck(){
+
+    public ArrayList<Card> constructDeck() {
         Card card;
         ArrayList<Card> cardDeck = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
@@ -39,29 +40,48 @@ public abstract class CardGame {
     protected String dealCard() {
         return this.deck.get(0).getCardART();
     }
-
-    protected ArrayList<Card> sortDeckInNumberOrder(){
+    protected abstract void takeTurn(ArrayList<Card> deck);
+    protected abstract void takeTurn(ArrayList<Card> deck, Player player1, Player player2);
+    protected abstract void takeTurn(Player player);
+    protected ArrayList<Card> sortDeckInNumberOrder() {
         this.deck = (ArrayList<Card>) deck.stream().sorted(Comparator.comparing(Card::getValue)).collect(Collectors.toList());
         return deck;
     }
 
-    protected ArrayList<Card> sortDeckIntoSuits(){
+    protected ArrayList<Card> sortDeckIntoSuits() {
         ArrayList<Card> sortedDeck = (ArrayList<Card>) deck.stream().sorted(Comparator.comparing(Card::getValue)).collect(Collectors.toList());
         this.deck = (ArrayList<Card>) sortedDeck.stream().sorted(Comparator.comparing(Card::getSuit)).collect(Collectors.toList());
         return deck;
-    };
+    }
 
-    protected ArrayList<Card> shuffleDeck(ArrayList<Card> deck ) {
+    protected ArrayList<Card> shuffleDeck(ArrayList<Card> deck) {
         Random r = new Random();
         for (int i = 51; i > 0; i--) {
             // Pick a random index from 0 to i
             int j = r.nextInt(i);
             // Swap deck[i] with the element at random index
             Card temp = deck.get(i);
-            deck.set(i,deck.get(j));
-            deck.set(j,temp);
+            deck.set(i, deck.get(j));
+            deck.set(j, temp);
         }
         return deck;
     }
+
+    public void dealAllCards(ArrayList<Player> players) {
+        int i = 0;
+        this.deck = shuffleDeck(this.deck);
+        while (i < 52) {
+            for (int j = 0; j < players.size(); j++) {
+                players.get(j).giveCard(this.deck.get(i));
+                i++;
+                if (i==52){
+                    break;
+                }
+            }
+        }
+    }
+
+
 }
+
 
